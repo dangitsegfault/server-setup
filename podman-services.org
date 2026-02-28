@@ -1,0 +1,195 @@
+* PORTS USED: 8001 - 8011, 8080
+    5432 : Miniflux DB (Postgresql)
+    8384, 22000 : Syncthing
+    19132, 19133 : Minecraft
+
+certbot certonly \
+            --standalone \
+            --cert-name botcodes.dev \
+            --config-dir $HOME/.local/containers/letsencrypt \
+            --work-dir $HOME/.local/containers/letsencrypt/work \
+            --logs-dir $HOME/.local/containers/letsencrypt/logs \
+            -d botcodes.dev \
+            -d www.botcodes.dev \
+            -d files.botcodes.dev \
+            -d todo.botcodes.dev \
+            -d search.botcodes.dev \
+            -d rss.botcodes.dev \
+            -d notify.botcodes.dev \
+            -d mumble.botcodes.dev \
+            -d auth.botcodes.dev \
+            -d git.botcodes.dev \
+            -d dav.botcodes.dev \
+            -d bookmarks.botcodes.dev \
+            -d tasks.botcodes.dev \
+            -d sync.botcodes.dev \
+            -m talhanoshahi@proton.me \
+            --agree-tos \
+            --no-eff-email
+           
+mkdir ~/.local/containers/mumble/data-volume
+
+podman volume create \
+           --opt type=none \
+           --opt device=$HOME/.local/containers/mumble/data-volume/ \
+           --opt o=bind \
+           mumble-data
+
+podman pod create --name botcodes \
+           -p 8040:80 \
+           -p 8041:443 \
+           -p 8042:2222 \
+           -p 8007:8007/tcp \
+           -p 8007:8007/udp \
+
+podman run -d \
+           --name nginx \
+           --pod=botcodes \
+           -v $HOME/.local/containers/nginx/config:/etc/nginx:ro \
+           -v $HOME/.local/containers/nginx/sites-available:/etc/nginx/sites-available:ro \
+           -v $HOME/.local/containers/nginx/html:/usr/share/nginx/html:ro \
+           -v $HOME/.local/containers/nginx/logs:/var/log/nginx \
+           -v $HOME/.local/containers/nginx/snippets:/etc/nginx/snippets:ro \
+           -v ~/.local/containers/letsencrypt/:/etc/letsencrypt:ro \
+           docker.io/nginx
+
+podman unshare chown -R 33:33 $HOME/.local/containers/nginx/html/botcodes/scripts
+
+podman run -d \
+           --name php \
+           --pod=botcodes \
+           -v $HOME/.local/containers/nginx/html/botcodes:/usr/share/nginx/html/botcodes:ro \
+           -v $HOME/.local/containers/nginx/html/botcodes/scripts:/usr/share/nginx/html/botcodes/scripts:rw \
+           docker.io/library/php:8.3.30-fpm
+        
+podman run -d \
+           --name=authelia \
+           --pod=botcodes \
+           --restart=on-failure \
+           -v $HOME/.local/containers/authelia/config:/config:ro \
+           -v $HOME/.local/containers/authelia/notifications:/notifications \
+           -v $HOME/.local/containers/authelia/secrets:/secrets:ro \
+           -v $HOME/.local/containers/letsencrypt:/etc/letsencrypt:ro \
+           docker.io/authelia/authelia:latest
+
+podman run -d \
+           --name=filebrowser \
+           --pod=botcodes \
+           -v $HOME/.local/containers/filebrowser/serve:/srv \
+           -v $HOME/.local/containers/filebrowser/database:/database \
+           -v $HOME/.local/containers/filebrowser/config:/config:ro \
+           docker.io/filebrowser/filebrowser
+        
+podman run -d \
+           --name=searxng \
+           --pod=botcodes \
+           -v ~/.local/containers/searxng/config/:/etc/searxng/ \
+           -v ~/.local/containers/searxng/data/:/var/cache/searxng/ \
+           docker.io/searxng/searxng
+           
+podman run -d \
+           --name mumble-server \
+           --pod=botcodes \
+           -v mumble-data:/data:Z \
+           -v $HOME/.local/containers/letsencrypt:/etc/letsencrypt:ro \
+           -e "MUMBLE_CONFIG_PORT=8007" \
+           docker.io/mumblevoip/mumble-server
+           
+podman unshare chown -R 1000:1000 ~/.local/containers/forgejo/data
+podman run -d \
+           --name=forgejo \
+           --pod=botcodes \
+           -v ~/.local/containers/forgejo/data:/var/lib/gitea:rw \
+           -v ~/.local/containers/forgejo/conf:/etc/gitea:rw \
+           -v /etc/timezone:/etc/timezone:ro \
+           -v /etc/localtime:/etc/localtime:ro \
+           -e FORGEJO__server__DOMAIN=git.botcodes.dev \
+           -e FORGEJO__server__ROOT_URL=https://git.botcodes.dev/ \
+           -e FORGEJO__server__SSH_DOMAIN=git.botcodes.dev \
+           -e FORGEJO__server__SSH_PORT=2222 \
+           -e FORGEJO__server__START_SSH_SERVER=true \
+           -e FORGEJO__server__SSH_LISTEN_PORT=2222 \
+           codeberg.org/forgejo/forgejo:12-rootless
+
+git clone https://github.com/Kozea/Radicale.git ~/.local/src/radicale
+podman build -t radicale ~/.local/src/radicale
+                         
+podman unshare chown -R 1000:1000 ~/.local/containers/radicale/data
+podman run -d \
+           --name=radicale \
+           --pod=botcodes \
+           -v $HOME/.local/containers/radicale/config:/etc/radicale:Z \
+           -v $HOME/.local/containers/radicale/data:/var/lib/radicale:Z \
+           localhost/radicale
+           
+podman run -d \
+           --name=linkding \
+           --pod=botcodes \
+           -e LD_SERVER_PORT=8009 \
+           -v $HOME/.local/containers/linkding:/etc/linkding/data \
+           docker.io/sissbruecker/linkding:latest
+           
+podman exec -it linkding python manage.py createsuperuser --username=user
+
+# Command for upto PostgreSQL 17
+podman run -d \
+           --name=miniflux-db \
+           --pod=botcodes \
+           -e POSTGRES_USER=miniflux \
+           -e POSTGRES_PASSWORD=supersecret \
+           -e POSTGRES_DB=miniflux \
+           -v ~/.local/containers/miniflux/data:/var/lib/postgresql/data \
+           docker.io/postgres
+
+# Command for upto PostgreSQL 18 (Changed volume mount)
+podman unshare chown -R 999:999 ~/.local/containers/miniflux/data
+
+podman run -d \
+           --name=miniflux-db \
+           --pod=botcodes \
+           -e POSTGRES_USER=miniflux \
+           -e POSTGRES_PASSWORD=supersecret \
+           -e POSTGRES_DB=miniflux \
+           -v ~/.local/containers/miniflux/data:/var/lib/postgresql/ \
+           docker.io/postgres
+                               
+podman run -d \
+        --name=miniflux-app \
+        --pod=botcodes \
+        -e DATABASE_URL="postgres://miniflux:supersecret@miniflux-db/miniflux?sslmode=disable" \
+        -e RUN_MIGRATIONS=1 \
+        -e CREATE_ADMIN=1 \
+        -e ADMIN_USERNAME=admin \
+        -e ADMIN_PASSWORD=changeme \
+        -e PORT=8010 \
+        docker.io/miniflux/miniflux
+        
+podman run -d \
+        --name=tasks.md \
+        --pod=botcodes \
+        -e PUID=1000 \
+        -e PGID=1000 \
+        -e PORT=8011 \
+        -v ~/.local/containers/tasks.md/tasks:/tasks \
+        -v ~/.local/containers/tasks.md/config:/config \
+        --restart unless-stopped \
+        docker.io/baldissaramatheus/tasks.md
+        
+        
+// NOT USING THIS ANYMORE
+podman run -d \
+        --name=minecraft-bedrock-server \
+        -e EULA=TRUE \
+        -p 19132:19132/udp \
+        -v ~/.local/containers/minecraft-pe/data:/data \
+        docker.io/itzg/minecraft-bedrock-server
+
+// USING THIS NOW
+podman run -itd \
+        --restart=always \
+        --name=mcpe \
+        -p 19132:19132/udp \
+        -p 19133:19133/udp \
+        -v ~/.local/containers/mcpe-server:/data \
+        docker.io/lomot/minecraft-bedrock
+        
