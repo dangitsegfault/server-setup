@@ -1,8 +1,20 @@
-* PORTS USED: 8001 - 8011, 8080
-    5432 : Miniflux DB (Postgresql)
-    8384, 22000 : Syncthing
-    19132, 19133 : Minecraft
+* PORTS USED:
+        - 8001 - 8011, 8080
+        - Miniflux DB
+                - Postgresql docker container
+                - 5432 
+        - Syncthing
+                - 8384
+                - 22000 
+        - Minecraft
+                - Uses UDP 
+                - 19132
+                - 19133 
 
+* SSL Setup using certbot
+Requires port 80 to be accessible
+
+#+begin_src shell
 certbot certonly \
             --standalone \
             --cert-name botcodes.dev \
@@ -26,7 +38,11 @@ certbot certonly \
             -m talhanoshahi@proton.me \
             --agree-tos \
             --no-eff-email
-           
+#+end_src           
+
+* Setting up podman containers
+
+#+begin_src shell
 mkdir ~/.local/containers/mumble/data-volume
 
 podman volume create \
@@ -192,4 +208,6 @@ podman run -itd \
         -p 19133:19133/udp \
         -v ~/.local/containers/mcpe-server:/data \
         docker.io/lomot/minecraft-bedrock
+
+#+end_src
         
