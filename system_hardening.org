@@ -1,0 +1,44 @@
+1. Enable firewall
+
+udo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow 22/tcp      # SSH, if needed
+sudo ufw allow 8041/tcp      # HTTPS is running on 8041
+
+2. SSH Hardening
+
+Disable root login:
+sudo vim /etc/ssh/sshd_config
+# Set: PermitRootLogin no
+
+Disable password login
+# Set: PasswordAuthentication no
+
+Consider changing the default port (optional, reduces random scans).
+
+3. Install fail2ban
+
+4. Service Isolation
+Run web services as non-root users.
+Use containers (Docker/Podman) for apps where possible, isolating them from the host OS.
+
+5. Monitoring & Logs
+Monitor for anomalies:
+journalctl -xe for system logs.
+sudo ufw status for firewall logs.
+Set up intrusion detection like OSSEC or Wazuh if you want advanced monitoring.
+
+
+6. Network Hardening
+Disable unused services and ports:
+sudo ss -tulnp  # List open ports
+Turn off IPv6 if not needed.
+
+
+
+
+
+
+
+
+
