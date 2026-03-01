@@ -189,17 +189,6 @@ Requires port 80 to be accessible
 *** Miniflut (RSS Feed Reader)
 **** Deploying the database
   #+begin_src shell
-    # Command for upto PostgreSQL 17
-    podman run -d \
-           --name=miniflux-db \
-           --pod=botcodes \
-           -e POSTGRES_USER=miniflux \
-           -e POSTGRES_PASSWORD=supersecret \
-           -e POSTGRES_DB=miniflux \
-           -v ~/.local/containers/miniflux/data:/var/lib/postgresql/data \
-           docker.io/postgres
-
-    # Command for upto PostgreSQL 18 (Changed volume mount)
     podman unshare chown -R 999:999 ~/.local/containers/miniflux/data
 
     podman run -d \
@@ -243,15 +232,6 @@ Requires port 80 to be accessible
 
 *** Minecraft
 #+begin_src shell
-    // NOT USING THIS ANYMORE
-    podman run -d \
-           --name=minecraft-bedrock-server \
-           -e EULA=TRUE \
-           -p 19132:19132/udp \
-           -v ~/.local/containers/minecraft-pe/data:/data \
-           docker.io/itzg/minecraft-bedrock-server
-
-    // USING THIS NOW
     podman run -itd \
            --restart=always \
            --name=mcpe \
