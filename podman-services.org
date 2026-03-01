@@ -125,7 +125,7 @@ podman run -d \
            -e FORGEJO__server__SSH_PORT=2222 \
            -e FORGEJO__server__START_SSH_SERVER=true \
            -e FORGEJO__server__SSH_LISTEN_PORT=2222 \
-           codeberg.org/forgejo/forgejo:12-rootless
+           codeberg.org/forgejo/forgejo:14-rootless
 
 git clone https://github.com/Kozea/Radicale.git ~/.local/src/radicale
 podman build -t radicale ~/.local/src/radicale
