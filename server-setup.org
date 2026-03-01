@@ -1,0 +1,4 @@
+* Enable services to start without login
+#+begin_src shell
+sudo loginctl enable-linger $USER
+#+end_src
