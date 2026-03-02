@@ -42,43 +42,9 @@ Requires port 80 to be accessible
 
 * Setting up podman containers
 ** BOT Code POD
-*** Creating POD
-
-#+begin_src shell
-    podman pod create --name botcodes \
-           -p 8040:80 \
-           -p 8041:443 \
-           -p 8042:2222 \
-           -p 8007:8007/tcp \
-           -p 8007:8007/udp \
-#+end_src
-
-*** Nginx
-**** Nginx Container
-
-#+begin_src shell
-           podman run -d \
-               --name nginx \
-               --pod=botcodes \
-               -v $HOME/.local/containers/nginx/config:/etc/nginx:ro \
-               -v $HOME/.local/containers/nginx/sites-available:/etc/nginx/sites-available:ro \
-               -v $HOME/.local/containers/nginx/html:/usr/share/nginx/html:ro \
-               -v $HOME/.local/containers/nginx/logs:/var/log/nginx \
-               -v $HOME/.local/containers/nginx/snippets:/etc/nginx/snippets:ro \
-               -v ~/.local/containers/letsencrypt/:/etc/letsencrypt:ro \
-               docker.io/nginx
-#+end_src
-
 **** PHP Container for scripting support
 #+begin_src shell
     podman unshare chown -R 33:33 $HOME/.local/containers/nginx/html/botcodes/scripts
-
-    podman run -d \
-           --name php \
-           --pod=botcodes \
-           -v $HOME/.local/containers/nginx/html/botcodes:/usr/share/nginx/html/botcodes:ro \
-           -v $HOME/.local/containers/nginx/html/botcodes/scripts:/usr/share/nginx/html/botcodes/scripts:rw \
-           docker.io/library/php:8.3.30-fpm
 #+end_src
 
 *** Authelia
@@ -140,21 +106,7 @@ Requires port 80 to be accessible
 *** Forgejo (Git)
 #+begin_src shell
   podman unshare chown -R 1000:1000 ~/.local/containers/forgejo/data
-  podman run -d \
-         --name=forgejo \
-         --pod=botcodes \
-         -v ~/.local/containers/forgejo/data:/var/lib/gitea:rw \
-         -v ~/.local/containers/forgejo/conf:/etc/gitea:rw \
-         -v /etc/timezone:/etc/timezone:ro \
-         -v /etc/localtime:/etc/localtime:ro \
-         -e FORGEJO__server__DOMAIN=git.botcodes.dev \
-         -e FORGEJO__server__ROOT_URL=https://git.botcodes.dev/ \
-         -e FORGEJO__server__SSH_DOMAIN=git.botcodes.dev \
-         -e FORGEJO__server__SSH_PORT=2222 \
-         -e FORGEJO__server__START_SSH_SERVER=true \
-         -e FORGEJO__server__SSH_LISTEN_PORT=2222 \
-         codeberg.org/forgejo/forgejo:14-rootless
-  #+end_src
+#+end_src
 
 *** Radicale (Caldav and Cardav)
 **** Building Image

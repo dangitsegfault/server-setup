@@ -1,0 +1,13 @@
+[Unit]
+Description=Botcodes Pod
+
+[Pod]
+PodName=botcodes
+
+PublishPort=8040:80
+PublishPort=8041:443
+PublishPort=8042:2222
+PublishPort=8007:8007
+
+[Install]
+WantedBy=default.target
