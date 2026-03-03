@@ -47,19 +47,6 @@ Requires port 80 to be accessible
     podman unshare chown -R 33:33 $HOME/.local/containers/nginx/html/botcodes/scripts
 #+end_src
 
-*** Authelia
-#+begin_src shell
-    podman run -d \
-           --name=authelia \
-           --pod=botcodes \
-           --restart=on-failure \
-           -v $HOME/.local/containers/authelia/config:/config:ro \
-           -v $HOME/.local/containers/authelia/notifications:/notifications \
-           -v $HOME/.local/containers/authelia/secrets:/secrets:ro \
-           -v $HOME/.local/containers/letsencrypt:/etc/letsencrypt:ro \
-           docker.io/authelia/authelia:latest
-#+end_src
-
 *** Filebrowser
 #+begin_src shell
     podman run -d \

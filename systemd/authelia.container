@@ -1,0 +1,20 @@
+[Unit]
+Description=Authelia Quadlet
+Requires=nginx.service
+After=nginx.service
+
+[Container]
+ContainerName=authelia
+Image=docker.io/authelia/authelia:latest
+Pod=botcodes.pod
+
+Volume=%h/.local/containers/authelia/config:/config:ro
+Volume=%h/.local/containers/authelia/notifications:/notifications
+Volume=%h/.local/containers/authelia/secrets:/secrets:ro
+Volume=%h/.local/containers/letsencrypt:/etc/letsencrypt:ro
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
