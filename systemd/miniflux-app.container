@@ -1,0 +1,22 @@
+[Unit]
+Description=Miniflux App Quadlet
+Requires=miniflux-db.service
+After=miniflux-db.service
+
+[Container]
+ContainerName=miniflux-app
+Image=docker.io/miniflux/miniflux
+Pod=botcodes.pod
+
+Environment=PORT=8010
+Environment=CREATE_ADMIN=1
+Environment=RUN_MIGRATIONS=1
+Environment=ADMIN_USERNAME=admin
+Environment=ADMIN_PASSWORD=changeme
+Environment=DATABASE_URL="postgres://miniflux:supersecret@miniflux-db/miniflux?sslmode=disable"
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
