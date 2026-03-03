@@ -1,0 +1,3 @@
+[Build]
+ImageTag=localhost/radicale
+SetWorkingDirectory=https://github.com/Kozea/Radicale.git

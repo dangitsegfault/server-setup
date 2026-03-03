@@ -1,0 +1,18 @@
+[Unit]
+Description=Radicale Quadlet
+Requires=nginx.service
+After=nginx.service
+
+[Container]
+ContainerName=Radicale
+Image=radicale.build
+Pod=botcodes.pod
+
+Volume=%h/.local/containers/radicale/config:/etc/radicale
+Volume=%h/.local/containers/radicale/data:/var/lib/radicale
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

@@ -85,22 +85,9 @@ Requires port 80 to be accessible
 #+end_src
 
 *** Radicale (Caldav and Cardav)
-**** Building Image
-#+begin_src shell
-  git clone https://github.com/Kozea/Radicale.git ~/.local/src/radicale
-  podman build -t radicale ~/.local/src/radicale
-  #+end_src
-
-**** Deploying Image
   #+begin_src shell
     podman unshare chown -R 1000:1000 ~/.local/containers/radicale/data
-    podman run -d \
-           --name=radicale \
-           --pod=botcodes \
-           -v $HOME/.local/containers/radicale/config:/etc/radicale:Z \
-           -v $HOME/.local/containers/radicale/data:/var/lib/radicale:Z \
-           localhost/radicale
-    #+end_src
+  #+end_src
 
 *** Linkding (Bookmarking)
   #+begin_src shell
