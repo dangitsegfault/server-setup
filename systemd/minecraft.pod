@@ -1,0 +1,8 @@
+[Unit]
+Description=Minecraft Pod
+
+[Pod]
+PodName=minecraft
+
+[Install]
+WantedBy=default.target
