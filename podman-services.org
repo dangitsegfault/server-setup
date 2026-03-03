@@ -104,15 +104,9 @@ Requires port 80 to be accessible
 
 *** Linkding (Bookmarking)
   #+begin_src shell
-    podman run -d \
-           --name=linkding \
-           --pod=botcodes \
-           -e LD_SERVER_PORT=8009 \
-           -v $HOME/.local/containers/linkding:/etc/linkding/data \
-           docker.io/sissbruecker/linkding:latest
-
+    # Run once after making the container first time
     podman exec -it linkding python manage.py createsuperuser --username=user
-    #+end_src
+  #+end_src
 
 *** Miniflut (RSS Feed Reader)
 **** Deploying the database
