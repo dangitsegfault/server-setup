@@ -137,21 +137,6 @@ Requires port 80 to be accessible
            docker.io/miniflux/miniflux
     #+end_src
 
-*** Tasks.md (TODO)
-#+begin_src shell
-    podman run -d \
-           --name=tasks.md \
-           --pod=botcodes \
-           -e PUID=1000 \
-           -e PGID=1000 \
-           -e PORT=8011 \
-           -v ~/.local/containers/tasks.md/tasks:/tasks \
-           -v ~/.local/containers/tasks.md/config:/config \
-           --restart unless-stopped \
-           docker.io/baldissaramatheus/tasks.md
-    #+end_src
-
-
 *** Minecraft
 #+begin_src shell
     podman run -itd \

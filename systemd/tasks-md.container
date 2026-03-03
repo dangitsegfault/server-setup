@@ -1,0 +1,22 @@
+[Unit]
+Description=Task.md Quadlet
+Requires=authelia.service
+After=authelia.service
+
+[Container]
+ContainerName=tasks-md
+Image=docker.io/baldissaramatheus/tasks.md
+Pod=botcodes.pod
+
+Volume=%h/.local/containers/tasks.md/tasks:/tasks
+Volume=%h/.local/containers/tasks.md/config:/config
+
+Environment=PUID=1000
+Environment=PGID=1000
+Environment=PORT=8011
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
