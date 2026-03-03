@@ -47,17 +47,6 @@ Requires port 80 to be accessible
     podman unshare chown -R 33:33 $HOME/.local/containers/nginx/html/botcodes/scripts
 #+end_src
 
-*** Filebrowser
-#+begin_src shell
-    podman run -d \
-           --name=filebrowser \
-           --pod=botcodes \
-           -v $HOME/.local/containers/filebrowser/serve:/srv \
-           -v $HOME/.local/containers/filebrowser/database:/database \
-           -v $HOME/.local/containers/filebrowser/config:/config:ro \
-           docker.io/filebrowser/filebrowser
-#+end_src
-
 *** Mumble
 
   #+begin_src shell

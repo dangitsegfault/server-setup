@@ -1,0 +1,19 @@
+[Unit]
+Description=Filebrowser Quadlet
+Requires=authelia.service
+After=authelia.service
+
+[Container]
+ContainerName=filebrowser
+Image=docker.io/filebrowser/filebrowser
+Pod=botcodes.pod
+
+Volume=%h/.local/containers/filebrowser/serve:/srv
+Volume=%h/.local/containers/filebrowser/database:/database
+Volume=%h/.local/containers/filebrowser/config:/config:ro
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
