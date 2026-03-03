@@ -1,0 +1,16 @@
+[Unit]
+Description=MCPE Server Quadlet
+
+[Container]
+ContainerName=mcpe-server
+Image=docker.io/lomot/minecraft-bedrock
+
+Volume=%h/.local/containers/mcpe-server:/data
+
+PublishPort=19132:19132/udp
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

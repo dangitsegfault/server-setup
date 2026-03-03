@@ -137,14 +137,3 @@ Requires port 80 to be accessible
            docker.io/miniflux/miniflux
     #+end_src
 
-*** Minecraft
-#+begin_src shell
-    podman run -itd \
-           --restart=always \
-           --name=mcpe \
-           -p 19132:19132/udp \
-           -p 19133:19133/udp \
-           -v ~/.local/containers/mcpe-server:/data \
-           docker.io/lomot/minecraft-bedrock
-#+end_src
-        
