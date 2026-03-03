@@ -69,16 +69,6 @@ Requires port 80 to be accessible
     #+end_src
 
 
-*** Searxng
-#+begin_src shell
-  podman run -d \
-         --name=searxng \
-         --pod=botcodes \
-         -v ~/.local/containers/searxng/config/:/etc/searxng/ \
-         -v ~/.local/containers/searxng/data/:/var/cache/searxng/ \
-         docker.io/searxng/searxng
-  #+end_src
-
 *** Forgejo (Git)
 #+begin_src shell
   podman unshare chown -R 1000:1000 ~/.local/containers/forgejo/data
