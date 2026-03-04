@@ -11,6 +11,20 @@ Pod=botcodes.pod
 Volume=%h/.local/containers/searxng/config/:/etc/searxng/
 Volume=%h/.local/containers/searxng/data/:/var/cache/searxng/
 
+# These two are not working yet because of a bug in searxng
+# Setting the GRANIAN* below instead
+Environment=SEARXNG_PORT=8012
+Environment=SEARXNG_BIND_ADDRESS="127.0.0.1"
+
+Environment=SEARXNG_BASE_URL="https://search.botcodes.dev"
+Environment=SEARXNG_LIMITER=false
+Environment=SEARXNG_PUBLIC_INSTANCE=false
+Environment=SEARXNG_SECRET="NbS9p5oSHVsNf3k5rMPqClfkGNCAxIU3102"
+Environment=SEARXNG_DEBUG=false
+
+Environment=GRANIAN_PORT=8012
+Environment=GRANIAN_HOST=127.0.0.1
+
 [Service]
 Restart=always
 
