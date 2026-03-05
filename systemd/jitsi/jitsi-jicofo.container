@@ -1,0 +1,21 @@
+[Unit]
+Description=Jiitsi Conference Focus Quadlet
+Requires=jitsi-prosody.service
+After=jitsi-prosody.service
+
+[Container]
+ContainerName=jitsi-jicofo
+Image=docker.io/jitsi/jicofo:jicofo-1.0-1173-1
+Pod=jitsi.pod
+
+Label=service="jitsi-jicofo"
+
+Volume=%h/.local/containers/jitsi/jicofo:/config
+
+EnvironmentFile=%h/.config/containers/systemd/jitsi/env
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,21 @@
+[Unit]
+Description=Jitsi Video Bridge Quadlet
+Requires=jitsi-prosody.service
+After=jitsi-prosody.service
+
+[Container]
+ContainerName=jitsi-jvb
+Image=docker.io/jitsi/jvb:jvb-2.3-277-g6708140e0-1
+Pod=jitsi.pod
+
+Label=service="jitsi-jvb"
+
+Volume=%h/.local/containers/jitsi/jvb:/config
+
+EnvironmentFile=%h/.config/containers/systemd/jitsi/env
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Jitsi Pod
+
+[Pod]
+PodName=jitsi
+Network=bridge
+Network=jitsi.network
+NetworkAlias=xmpp.meet.jitsi
+NetworkAlias=jitsi-meet
+
+[Install]
+WantedBy=default.target

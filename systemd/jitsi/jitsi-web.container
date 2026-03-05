@@ -1,0 +1,24 @@
+[Unit]
+Description=Jitsi Web Quadlet
+Requires=jitsi-jvb.service
+After=jitsi-jvb.service
+
+[Container]
+ContainerName=jitsi-web
+Image=docker.io/jitsi/web:web-1.0.9093-1
+Pod=jitsi.pod
+
+Label=service="jitsi-web"
+
+Volume=%h/.local/containers/jitsi/web:/config
+Volume=%h/.local/containers/jitsi/web/crontabs:/var/spool/cron/crontabs
+Volume=%h/.local/containers/jitsi/transcripts:/usr/share/jitsi-meet/transcripts
+Volume=%h/.local/containers/jitsi/web/load-test:/usr/share/jitsi-meet/load-test
+
+EnvironmentFile=%h/.config/containers/systemd/jitsi/env
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

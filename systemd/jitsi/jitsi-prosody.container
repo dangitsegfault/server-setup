@@ -1,0 +1,20 @@
+[Unit]
+Description=Jitsi Prosody XMPP Quadlet
+
+[Container]
+ContainerName=jitsi-prosody
+Image=docker.io/jitsi/prosody:prosody-13.0.4
+Pod=jitsi.pod
+
+EnvironmentFile=%h/.config/containers/systemd/jitsi/env
+
+Label=service="jitsi-prosody"
+
+Volume=%h/.local/containers/jitsi/prosody/config:/config
+Volume=%h/.local/containers/jitsi/prosody/prosody-plugins-custom:/prosody-plugins-custom
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
