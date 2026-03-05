@@ -11,6 +11,11 @@ udo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow 22/tcp      # SSH, if needed
 sudo ufw allow 8041/tcp      # HTTPS is running on 8041
+sudo ufw allow 8050/tcp # for pi-hole web interface
+sudo ufw allow 53/tcp # for pi-hole
+sudo ufw allow 53/udp # for pi-hole
+sudo ufw allow 10000/udp # for jitsi
+sudo ufw enable
 #+end_src
 
 **  SSH Hardening
