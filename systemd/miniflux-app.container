@@ -6,7 +6,7 @@ After=miniflux-db.service
 [Container]
 ContainerName=miniflux-app
 Image=docker.io/miniflux/miniflux
-Pod=botcodes.pod
+Network=botcodes.network
 
 Environment=PORT=8010
 Environment=CREATE_ADMIN=1

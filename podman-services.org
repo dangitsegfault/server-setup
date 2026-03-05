@@ -1,50 +1,3 @@
-* PORTS USED:
-- 8001 - 8012
-- 8002:
-  - Filebrowser
-- 8003:
-  - Unused
-- 8004:
-  - Notify
-- 8005:
-  - Todo (Not using any program with that.)
-  -  I think I am using tasks.md instead now.
-- 8006
-  - Authelia
-- 8007
-  - Mumble UDP
-- 8008
-  - Dav (Radicale)
-- 8009
-  - Bookmarks (Linkding)
-- 8010
-  - RSS Feed Reader (Miniflut)
-- 8011
-  - Tasks.md
-- 8012
-  - SearxNG
-- 5432 
-  - Miniflux DB
-  - Postgresql docker container
-- 8384, 22000 
-  - Syncthing
-- 19132, 19133 
-  - Minecraft
-  - Uses UDP 
-- 8080
-  - Previosly being used by SearxNG
-- 8040, 8041
-  - Mapped to 80 and 443 inside podman
-  - HTTP and HTTPS by Nginx
-  - HTTP is not currently used by NGINX but I am keeping it just in case
-  - May be revert them to 80 and 443 when start using FRP or just keep these
-- 8042
-  - Mapped to 80 and 443 inside podman
-  - Used by Forgejo for ssh access
- - 3000
-  - Forgejo web
-
-
 * SSL Setup using certbot
 Requires port 80 to be accessible
 
@@ -123,5 +76,18 @@ Requires port 80 to be accessible
 **** Deploying the database
   #+begin_src shell
     podman unshare chown -R 999:999 ~/.local/containers/miniflux/data
+  #+end_src
+
+** Jitsi
+Following instructions here for [[https://jitsi.github.io/handbook/docs/devops-guide/devops-guide-docker/#internal-authentication][Internal authentication]]
+
+Run the following commands after systemd has successfully created the containers for jitsi-meet.
+  #+begin_src shell
+    podman exec -it jitsi-prosody /bin/bash
+  #+end_src
+
+Once in the container, run the following command to create a user
+  #+begin_src shell
+  podman exec -it jitsi-prosody prosodyctl --config /config/prosody.cfg.lua adduser bot@meet.jitsi
   #+end_src
 

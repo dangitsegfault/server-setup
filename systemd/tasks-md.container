@@ -6,7 +6,7 @@ After=authelia.service
 [Container]
 ContainerName=tasks-md
 Image=docker.io/baldissaramatheus/tasks.md
-Pod=botcodes.pod
+Network=botcodes.network
 
 Volume=%h/.local/containers/tasks.md/tasks:/tasks
 Volume=%h/.local/containers/tasks.md/config:/config

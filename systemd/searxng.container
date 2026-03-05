@@ -1,12 +1,11 @@
 [Unit]
 Description=Searxng Quadlet
-Requires=nginx.service
-After=nginx.service
+Wants=nginx.service
 
 [Container]
 ContainerName=searxng
 Image=docker.io/searxng/searxng
-Pod=botcodes.pod
+Network=botcodes.network
 
 Volume=%h/.local/containers/searxng/config/:/etc/searxng/
 Volume=%h/.local/containers/searxng/data/:/var/cache/searxng/

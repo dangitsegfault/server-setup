@@ -4,7 +4,7 @@ Description=PHP Quadlet
 [Container]
 ContainerName=php
 Image=docker.io/library/php:8.3.30-fpm
-Pod=botcodes.pod
+Network=botcodes.network
 
 Volume=%h/.local/containers/nginx/html/botcodes:/usr/share/nginx/html/botcodes:ro
 Volume=%h/.local/containers/nginx/html/botcodes/scripts:/usr/share/nginx/html/botcodes/scripts:rw

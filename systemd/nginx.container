@@ -1,12 +1,19 @@
 [Unit]
 Description=Nginx Quadlet
-Requires=php.service
-After=php.service
+Wants=php.service authelia.service filebrowser.service
+Wants=forgejo.service linkding.service miniflux-app.service radicale.service
+Wants=searxng.service tasks-md.service
+
+After=php.service authelia.service filebrowser.service
+After=forgejo.service linkding.service miniflux-app.service radicale.service
+After=searxng.service tasks-md.service
 
 [Container]
 ContainerName=nginx
 Image=docker.io/library/nginx
-Pod=botcodes.pod
+Network=botcodes.network
+
+PublishPort=8041:443
 
 Volume=%h/.local/containers/nginx/config:/etc/nginx:ro
 Volume=%h/.local/containers/nginx/sites-available:/etc/nginx/sites-available:ro
@@ -17,6 +24,7 @@ Volume=%h/.local/containers/letsencrypt/:/etc/letsencrypt:ro
 
 [Service]
 Restart=always
+RestartSec=5s
 
 [Install]
 WantedBy=default.target

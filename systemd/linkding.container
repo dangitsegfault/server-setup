@@ -1,12 +1,11 @@
 [Unit]
 Description=Linking Quadlet
-Requires=nginx.service
-After=nginx.service
+Wants=nginx.service
 
 [Container]
 ContainerName=linkding
 Image=docker.io/sissbruecker/linkding:latest
-Pod=botcodes.pod
+Network=botcodes.network
 
 Volume=%h/.local/containers/linkding:/etc/linkding/data
 Environment=LD_SERVER_PORT=8009

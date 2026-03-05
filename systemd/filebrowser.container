@@ -6,7 +6,7 @@ After=authelia.service
 [Container]
 ContainerName=filebrowser
 Image=docker.io/filebrowser/filebrowser
-Pod=botcodes.pod
+Network=botcodes.network
 
 Volume=%h/.local/containers/filebrowser/serve:/srv
 Volume=%h/.local/containers/filebrowser/database:/database

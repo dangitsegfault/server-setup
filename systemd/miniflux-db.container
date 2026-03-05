@@ -6,7 +6,7 @@ After=authelia.service
 [Container]
 ContainerName=miniflux-db
 Image=docker.io/library/postgres
-Pod=botcodes.pod
+Network=botcodes.network
 
 Environment=POSTGRES_USER=miniflux
 Environment=POSTGRES_PASSWORD=supersecret
