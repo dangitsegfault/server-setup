@@ -22,7 +22,7 @@ Environment=SEARXNG_SECRET="NbS9p5oSHVsNf3k5rMPqClfkGNCAxIU3102"
 Environment=SEARXNG_DEBUG=false
 
 Environment=GRANIAN_PORT=8012
-Environment=GRANIAN_HOST=127.0.0.1
+Environment=GRANIAN_HOST=0.0.0.0
 
 [Service]
 Restart=always
