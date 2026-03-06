@@ -11,17 +11,14 @@ Requires port 80 to be accessible
           -d botcodes.dev \
           -d www.botcodes.dev \
           -d files.botcodes.dev \
-          -d todo.botcodes.dev \
           -d search.botcodes.dev \
           -d rss.botcodes.dev \
-          -d notify.botcodes.dev \
-          -d mumble.botcodes.dev \
           -d auth.botcodes.dev \
           -d git.botcodes.dev \
           -d dav.botcodes.dev \
           -d bookmarks.botcodes.dev \
           -d tasks.botcodes.dev \
-          -d sync.botcodes.dev \
+          -d meet.botcodes.dev \
           -m talhanoshahi@proton.me \
           --agree-tos \
           --no-eff-email

@@ -8,5 +8,7 @@ Network=jitsi.network
 NetworkAlias=xmpp.meet.jitsi
 NetworkAlias=jitsi-meet
 
+PublishPort=10000:10000/udp
+
 [Install]
 WantedBy=default.target
