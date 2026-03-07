@@ -1,0 +1,20 @@
+[Unit]
+Description=XMPP Quadlet
+
+[Container]
+ContainerName=xmpp
+Image=docker.io/prosody/prosody
+Network=botcodes.network
+
+Volume=%h/.local/containers/prosody/config:/etc/prosody
+Volume=%h/.local/containers/prosody/data:/var/lib/prosody
+
+Environment=DOMAIN=xmpp.botcodes.dev
+Environment=LOCAL=admin
+Environment=PASSWORD=strongpassword
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

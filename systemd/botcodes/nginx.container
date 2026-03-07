@@ -2,11 +2,11 @@
 Description=Nginx Quadlet
 Wants=php.service jitsi-web.service authelia.service filebrowser.service
 Wants=forgejo.service linkding.service miniflux-app.service radicale.service
-Wants=searxng.service tasks-md.service
+Wants=searxng.service tasks-md.service xmpp.service
 
 After=php.service jitsi-web.service authelia.service filebrowser.service
 After=forgejo.service linkding.service miniflux-app.service radicale.service
-After=searxng.service tasks-md.service
+After=searxng.service tasks-md.service xmpp.service
 
 [Container]
 ContainerName=nginx
@@ -15,8 +15,10 @@ Network=jitsi.network
 Network=botcodes.network
 
 PublishPort=8041:443
+PublishPort=5222:5222
 
 Volume=%h/.local/containers/nginx/config:/etc/nginx:ro
+Volume=%h/.local/containers/nginx/streams:/etc/nginx/streams:ro
 Volume=%h/.local/containers/nginx/sites-available:/etc/nginx/sites-available:ro
 Volume=%h/.local/containers/nginx/html:/usr/share/nginx/html:ro
 Volume=%h/.local/containers/nginx/logs:/var/log/nginx
