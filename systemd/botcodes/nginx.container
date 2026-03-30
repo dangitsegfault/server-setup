@@ -1,20 +1,13 @@
 [Unit]
 Description=Nginx Quadlet
-Wants=php.service jitsi-web.service authelia.service filebrowser.service
-Wants=forgejo.service linkding.service miniflux-app.service radicale.service
-Wants=searxng.service tasks-md.service xmpp.service
-
-After=php.service jitsi-web.service authelia.service filebrowser.service
-After=forgejo.service linkding.service miniflux-app.service radicale.service
-After=searxng.service tasks-md.service xmpp.service
 
 [Container]
 ContainerName=nginx
 Image=docker.io/library/nginx
-Network=jitsi.network
 Network=botcodes.network
+IP=10.0.0.11
 
-PublishPort=8041:443
+PublishPort=8080:80
 PublishPort=5222:5222
 
 Volume=%h/.local/containers/nginx/config:/etc/nginx:ro
