@@ -1,0 +1,3 @@
+[Build]
+ImageTag=localhost/wireguard-client
+SetWorkingDirectory=%h/.config/containers/systemd/dockerfiles/wireguard
