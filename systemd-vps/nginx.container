@@ -1,0 +1,20 @@
+[Unit]
+Description=Nginx Quadlet
+
+[Container]
+ContainerName=nginx
+Image=docker.io/library/nginx
+Network=wireguard-server.container
+
+Volume=%h/.local/containers/nginx/config:/etc/nginx:ro
+Volume=%h/.local/containers/nginx/sites-available:/etc/nginx/sites-available:ro
+Volume=%h/.local/containers/nginx/logs:/var/log/nginx
+Volume=%h/.local/containers/nginx/snippets:/etc/nginx/snippets:ro
+Volume=%h/.local/containers/letsencrypt/:/etc/letsencrypt:ro
+
+[Service]
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
