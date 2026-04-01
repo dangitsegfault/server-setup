@@ -1,6 +1,9 @@
 * SSL Setup using certbot
-Requires port 80 to be accessible
+Requires port 80 to request new certs
 
+** botcodes.dev
+Just change the -d flag for other domains
+Also change the --cert-name for each domain
 #+begin_src shell
   certbot certonly \
           --standalone \
@@ -10,19 +13,11 @@ Requires port 80 to be accessible
           --logs-dir $HOME/.local/containers/letsencrypt/logs \
           -d botcodes.dev \
           -d www.botcodes.dev \
-          -d files.botcodes.dev \
-          -d search.botcodes.dev \
-          -d rss.botcodes.dev \
-          -d auth.botcodes.dev \
-          -d git.botcodes.dev \
-          -d dav.botcodes.dev \
-          -d bookmarks.botcodes.dev \
-          -d tasks.botcodes.dev \
-          -d meet.botcodes.dev \
           -m talhanoshahi@proton.me \
           --agree-tos \
           --no-eff-email
-#+end_src           
+#+end_src
+
 
 * Setting up podman containers
 ** BOT Code POD
