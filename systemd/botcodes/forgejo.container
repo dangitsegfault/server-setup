@@ -6,6 +6,7 @@ Wants=nginx.service
 ContainerName=forgejo
 Image=codeberg.org/forgejo/forgejo:14-rootless
 Network=botcodes.network
+IP=10.0.0.13
 
 Volume=%h/.local/containers/forgejo/data:/var/lib/gitea:rw
 Volume=%h/.local/containers/forgejo/conf:/etc/gitea:rw

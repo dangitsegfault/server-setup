@@ -7,6 +7,7 @@ After=authelia.service
 ContainerName=filebrowser
 Image=docker.io/filebrowser/filebrowser
 Network=botcodes.network
+IP=10.0.0.16
 
 Volume=%h/.local/containers/filebrowser/serve:/srv
 Volume=%h/.local/containers/filebrowser/database:/database
