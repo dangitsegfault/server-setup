@@ -9,6 +9,8 @@ Image=docker.io/baldissaramatheus/tasks.md
 Network=botcodes.network
 IP=10.0.0.19
 
+UserNS=keep-id
+
 Volume=%h/.local/containers/tasks.md/tasks:/tasks
 Volume=%h/.local/containers/tasks.md/config:/config
 
