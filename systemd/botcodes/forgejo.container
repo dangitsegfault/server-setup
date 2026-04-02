@@ -8,6 +8,8 @@ Image=codeberg.org/forgejo/forgejo:14-rootless
 Network=botcodes.network
 IP=10.0.0.13
 
+UserNS=keep-id
+
 Volume=%h/.local/containers/forgejo/data:/var/lib/gitea:rw
 Volume=%h/.local/containers/forgejo/conf:/etc/gitea:rw
 # Volume=/etc/timezone:/etc/timezone:ro
