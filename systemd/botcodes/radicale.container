@@ -8,6 +8,8 @@ Image=radicale.build
 Network=botcodes.network
 IP=10.0.0.18
 
+UserNS=keep-id
+
 Volume=%h/.local/containers/radicale/config:/etc/radicale
 Volume=%h/.local/containers/radicale/data:/var/lib/radicale
 

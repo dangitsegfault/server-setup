@@ -47,11 +47,6 @@ Also change the --cert-name for each domain
 
     #+end_src
 
-*** Radicale (Caldav and Cardav)
-  #+begin_src shell
-    podman unshare chown -R 1000:1000 ~/.local/containers/radicale/data
-  #+end_src
-
 *** Linkding (Bookmarking)
   #+begin_src shell
     # Run once after making the container first time
