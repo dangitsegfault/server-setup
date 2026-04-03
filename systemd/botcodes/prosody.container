@@ -1,17 +1,25 @@
 [Unit]
-Description=XMPP Quadlet
+Description=Prosody Quadlet
 
 [Container]
-ContainerName=xmpp
-Image=docker.io/prosody/prosody
+ContainerName=prosody
+Image=docker.io/prosodyim/prosody:13.0
 Network=botcodes.network
+IP=10.0.0.22
+
+UserNS=keep-id
+User=0:0
+PodmanArgs=--passwd=false
 
 Volume=%h/.local/containers/prosody/config:/etc/prosody
 Volume=%h/.local/containers/prosody/data:/var/lib/prosody
+Volume=%h/.local/containers/prosody/certs:/var/lib/prosody/certs:ro
 
 Environment=DOMAIN=xmpp.botcodes.dev
-Environment=LOCAL=admin
+Environment=LOCAL=nightmare
 Environment=PASSWORD=strongpassword
+Environment=PROSODY_VIRTUAL_HOSTS=xmpp.botcodes.dev
+Environment=PROSODY_CERTIFICATES=/var/lib/prosody/certs
 
 [Service]
 Restart=always

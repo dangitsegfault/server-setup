@@ -17,6 +17,9 @@ PublishPort=443:443
 
 PublishPort=2222:2222
 PublishPort=51820:51820/udp
+PublishPort=5222:5222
+PublishPort=5269:5269
+PublishPort=5281:5281
 
 Environment=PUID=1000
 Environment=PGID=1000
