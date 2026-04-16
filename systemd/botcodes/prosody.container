@@ -20,6 +20,10 @@ Environment=LOCAL=nightmare
 Environment=PASSWORD=strongpassword
 Environment=PROSODY_VIRTUAL_HOSTS=xmpp.botcodes.dev
 Environment=PROSODY_CERTIFICATES=/var/lib/prosody/certs
+Environment=PROSODY_TURN_SECRET=coturn_homeserver_secret
+Environment=PROSODY_TURN_HOST=coturn.botcodes.dev
+Environment=PROSODY_TURN_PORT=3478
+Environment=PROSODY_TURN_TLS_PORT=5349
 
 [Service]
 Restart=always

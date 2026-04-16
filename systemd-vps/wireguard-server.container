@@ -20,6 +20,14 @@ PublishPort=51820:51820/udp
 PublishPort=5222:5222
 PublishPort=5269:5269
 PublishPort=5281:5281
+PublishPort=19132:19132/udp
+
+# Coturn
+PublishPort=3478:3478
+PublishPort=3478:3478/udp
+PublishPort=5349:5349
+PublishPort=5349:5349/udp
+PublishPort=49160-49200:49160-49200/udp
 
 Environment=PUID=1000
 Environment=PGID=1000
@@ -28,6 +36,7 @@ Environment=SERVERURL=68.183.230.4
 Environment=SERVERPORT=51820
 Environment=PEERS=1
 Environment=INTERNAL_SUBNET=10.10.0.0
+Environment=MODULE_CHECK=false
 
 [Service]
 Restart=always

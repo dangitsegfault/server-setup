@@ -1,0 +1,28 @@
+[Unit]
+Description=CoTurn Quadlet
+
+[Container]
+ContainerName=coturn
+Image=docker.io/coturn/coturn
+Network=botcodes.network
+IP=10.0.0.24
+
+UserNS=keep-id
+Exec=--listening-ip=0.0.0.0 \
+     --log-file=stdout \
+     --static-auth-secret=coturn_homeserver_secret \
+     --realm=coturn.botcodes.dev \
+     --external-ip=68.183.230.4 \
+     --relay-ip=10.0.0.24 \
+     --fingerprint \
+     --min-port=49185 \
+     --max-port=49200 \
+     --no-tls \
+     --no-dtls
+     # --user=testuser:testpass
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
