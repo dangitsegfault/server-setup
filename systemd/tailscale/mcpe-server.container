@@ -4,10 +4,12 @@ Description=MCPE Server Quadlet
 [Container]
 ContainerName=mcpe-server
 Image=docker.io/lomot/minecraft-bedrock
+Network=botcodes.network
+IP=10.0.0.23
 
 Volume=%h/.local/containers/mcpe-server:/data
 
-PublishPort=19132:19132/udp
+# PublishPort=19132:19132/udp
 
 [Service]
 Restart=always
