@@ -1,0 +1,28 @@
+#+TITLE: Systemd Quadlet files
+
+This directory contains the systemd quadlet files to reproduce my containers.
+
+* Systemd files for my home-server
+
+Link the /home-server/ directory to ~/.config/containers/systemd on the home-server.
+In my case, my  home server is behind NAT and is not publically accessible.
+
+#+begin_src shell
+
+# must use full path
+ln -s $(COMPLETE PATH TO PWD)/home-server ~/.config/containers/systemd/home-server
+
+#+end_src
+
+
+* Systemd files for my vps server
+
+The same thing needs to appen on vps side.
+Link the /vps/ directory to ~/.config/containers/systemd on the vps.
+
+#+begin_src shell
+
+# must use full path
+ln -s $(COMPLETE PATH TO PWD)/vps ~/.config/containers/systemd/vps
+
+#+end_src
