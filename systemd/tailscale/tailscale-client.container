@@ -1,0 +1,29 @@
+# For AUTHKEY
+# headscale preauthkeys create --user $USERID --reusable --expiration 365d
+#
+# UDP Port (Must have)
+# sudo ufw allow 41641/udp
+
+[Unit]
+Description=Tailscale Client Quadlet
+
+[Container]
+ContainerName=tailscale-client
+Image=docker.io/tailscale/tailscale:latest
+# Pod=tailscale.pod
+
+Volume=%h/.local/containers/tailscale:/var/lib/tailscale
+
+Environment=TS_AUTHKEY=hskey-auth-GjdNTQcTu2lO-besvtZbF3LnZZld3QeLAlC4AMMbH7IvTXzcuZunRoJYfbByd355b6YSQAEYrFrqt
+Environment=TS_STATE_DIR=/var/lib/tailscale
+Environment=TS_EXTRA_ARGS=--login-server=https://headscale.botcodes.dev
+
+
+AddCapability=net_admin
+AddCapability=net_raw
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
