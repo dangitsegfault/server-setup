@@ -1,0 +1,21 @@
+[Unit]
+Description=Headscale Quadlet
+
+[Container]
+ContainerName=headscale
+Image=docker.io/headscale/headscale:latest
+
+Network=botcodes.network
+IP=10.0.0.25
+
+Volume=%h/.local/containers/headscale/config:/etc/headscale:ro
+Volume=%h/.local/containers/headscale/lib:/var/lib/headscale
+
+Exec=serve
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
+
