@@ -1,0 +1,19 @@
+- hosts: home-server
+  become: false
+
+  tasks:
+    - name: Ensure quadlet directory exists
+      file:
+        path: "{{ ansible_env.HOME }}/.config/containers/systemd"
+        state: directory
+
+
+    - name: Copy quadlet
+      copy:
+        src: quadlets/home-server
+        dest: "{{ ansible_env.HOME }}/.config/containers/systemd/"
+
+    - name: Reload user systemd
+      systemd:
+        daemon_reload: true
+        scope: user
