@@ -14,13 +14,13 @@ Image=docker.io/tailscale/tailscale:latest
 
 Volume=%h/.local/containers/tailscale:/var/lib/tailscale
 
-Environment=TS_AUTHKEY=hskey-auth-GjdNTQcTu2lO-besvtZbF3LnZZld3QeLAlC4AMMbH7IvTXzcuZunRoJYfbByd355b6YSQAEYrFrqt
-Environment=TS_STATE_DIR=/var/lib/tailscale
-Environment=TS_EXTRA_ARGS=--login-server=https://headscale.botcodes.dev
-
+EnvironmentFile=tailscale.env
 
 AddCapability=net_admin
 AddCapability=net_raw
+
+# For Minecraft access without tailscale
+PublishPort=19132:19132/udp
 
 [Service]
 Restart=always
