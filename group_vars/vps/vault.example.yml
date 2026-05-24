@@ -1,0 +1,3 @@
+mumlbe_config_users: number of simultaneous users
+mumble_config_port: server port
+mumble_config_host: mumble.example.com

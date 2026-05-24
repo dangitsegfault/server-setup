@@ -1,0 +1,28 @@
+[Unit]
+Description=Mumble Quadlet
+
+[Container]
+ContainerName=mumble
+Image=docker.io/mumblevoip/mumble-server:latest
+
+UserNS=keep-id
+
+Volume=%h/.local/containers/mumble:/data
+Volume=%h/.local/containers/letsencrypt/:/etc/letsencrypt:ro
+
+PublishPort={{ mumble_config_port }}:{{ mumble_config_port }}/tcp
+PublishPort={{ mumble_config_port }}:{{ mumble_config_port }}/udp
+
+Environment=MUMBLE_VERBOSE=true
+Environment=MUMBLE_CONFIG_USERS={{ mumble_config_users }}
+Environment=MUMBLE_CONFIG_PORT={{ mumble_config_port }}
+Environment=MUMBLE_CONFIG_HOST={{ mumble_config_host }}
+
+Environment=MUMBLE_CONFIG_SSL_CERT=/etc/letsencrypt/live/mumble.botcodes.dev/fullchain.pem
+Environment=MUMBLE_CONFIG_SSL_KEY=/etc/letsencrypt/live/mumble.botcodes.dev/privkey.pem
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
