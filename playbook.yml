@@ -18,11 +18,27 @@
       when:
         - item.state == 'file'
         - not item.path.endswith('~')
+      register: quadlet_results
 
     - name: Reload user systemd
       systemd:
         daemon_reload: true
         scope: user
+
+    - name: Restart changed container services
+      systemd:
+        name: >-
+          {{
+          item.item
+          | basename
+          | regex_replace('\.container(\.j2)?$', '')
+          }}.service
+        state: restarted
+        scope: user
+      loop: "{{ quadlet_results.results }}"
+      when:
+        - item.changed
+        - item.item is match('.*\\.container(\\.j2)?$')
 
     - name: Setup Wireguard 
       become: true
