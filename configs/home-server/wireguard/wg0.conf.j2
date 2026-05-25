@@ -1,0 +1,13 @@
+[Interface]
+Address = 10.10.0.2
+PrivateKey = {{ wireguard_peer_private_key }}
+ListenPort = {{ wireguard_server_port }}
+# DNS = 10.10.0.1
+
+[Peer]
+PersistentKeepalive = 25
+PublicKey = {{ wireguard_server_public_key }}
+PresharedKey = {{ wireguard_server_preshared_key }}
+Endpoint = {{ wireguard_server_address }}:{{ wireguard_server_port }}
+AllowedIPs = 10.10.0.0/24
+# AllowedIPs = 0.0.0.0/0
