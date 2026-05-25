@@ -1,7 +1,0 @@
-table ip nat {
-  chain postrouting {
-    type nat hook postrouting priority srcnat;
-
-    oifname "wg0" ip saddr 10.10.0.0/24 masquerade
-  }
-}

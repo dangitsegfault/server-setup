@@ -27,13 +27,12 @@
     - name: Setup Wireguard 
       become: true
       block:
-        - name: Install WireGuard and nftables
+        - name: Install WireGuard
           ansible.builtin.package:
             name:
               - wireguard
               - wireguard-tools
               - iptables
-              - nftables
             state: present
 
         - name: Enable IP forwarding
@@ -49,7 +48,6 @@
             state: directory
           loop:
             - /etc/wireguard/
-            - /etc/
 
         - name: Deploy configs
           ansible.builtin.template:
@@ -60,12 +58,9 @@
             mode: "0600"
           notify:
             - Restart WireGuard
-            - Restart nftables
           loop:
             - src: configs/home-server/wireguard/wg0.conf.j2
               dest: /etc/wireguard/wg0.conf
-            - src: configs/home-server/nftables/nftables.conf.j2
-              dest: /etc/nftables.conf
 
         - name: Ensure services are running
           ansible.builtin.systemd_service:
@@ -74,19 +69,12 @@
             enabled: true
           loop:
             - wg-quick@wg0
-            - nftables
 
   handlers:
     - name: Restart WireGuard
       become: true
       ansible.builtin.systemd_service:
         name: wg-quick@wg0
-        state: restarted
-
-    - name: Restart nftables
-      become: true
-      ansible.builtin.systemd_service:
-        name: nftables
         state: restarted
 
 - hosts: vps
