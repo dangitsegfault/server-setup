@@ -13,7 +13,7 @@ server {
   }
 
   resolver 10.0.0.1 valid=10s;
-  set $php_backend http://php:9000;
+  set $php_backend php:9000;
 
   location ~ \.php$ {
     fastcgi_pass $php_backend; # php container
