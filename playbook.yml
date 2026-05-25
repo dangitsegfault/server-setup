@@ -75,7 +75,7 @@
           notify:
             - Restart WireGuard
           loop:
-            - src: configs/home-server/wireguard/wg0.conf.j2
+            - src: configs/wireguard/home-server/wg0.conf.j2
               dest: /etc/wireguard/wg0.conf
 
         - name: Ensure services are running
@@ -154,9 +154,9 @@
             - Restart WireGuard
             - Restart nftables
           loop:
-            - src: configs/vps/wireguard/wg0.conf.j2
+            - src: configs/wireguard/vps/wg0.conf.j2
               dest: /etc/wireguard/wg0.conf
-            - src: configs/vps/nftables/nftables.conf.j2
+            - src: configs/wireguard/vps/nftables.conf.j2
               dest: /etc/nftables.conf
 
         - name: Ensure services are running
