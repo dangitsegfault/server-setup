@@ -1,0 +1,22 @@
+table ip nat {
+  chain prerouting {
+    type nat hook prerouting priority dstnat;
+
+    # forgejo ssh
+    tcp dport 2222 dnat to 10.0.0.13:2222
+
+    # coturn
+    tcp dport 3478 dnat to 10.0.0.24:3478
+    udp dport 3478 dnat to 10.0.0.24:3478
+    udp dport 49185-49200 dnat to 10.0.0.24
+
+    # Headscale
+    udp dport 49185-49200 dnat to 10.0.0.24
+  }
+
+  chain postrouting {
+    type nat hook postrouting priority srcnat;
+
+    oifname "wg0" ip daddr 10.0.0.0/24 masquerade
+  }
+}
