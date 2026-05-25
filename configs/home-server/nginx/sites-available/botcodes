@@ -1,0 +1,29 @@
+server {
+  listen 443 ssl;
+  server_name botcodes.dev www.botcodes.dev;
+
+  ssl_certificate     /etc/letsencrypt/live/botcodes.dev/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/botcodes.dev/privkey.pem;
+
+  root /usr/share/nginx/html/botcodes;
+  index index.php index.html index.htm;
+
+  location / {
+    try_files $uri $uri/ /index.php?$query_string;
+  }
+
+  resolver 10.0.0.1 valid=10s;
+  set $php_backend http://php:9000;
+
+  location ~ \.php$ {
+    fastcgi_pass $php_backend; # php container
+    fastcgi_index index.php;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+  }
+
+  # Optional: disable .htaccess and hidden files
+  location ~ /\. {
+    deny all;
+  }
+}

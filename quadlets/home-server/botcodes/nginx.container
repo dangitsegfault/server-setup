@@ -5,18 +5,17 @@ Description=Nginx Quadlet
 ContainerName=nginx
 Image=docker.io/library/nginx
 Network=botcodes.network
-IP=10.0.0.11
 
-PublishPort=8080:80
-PublishPort=5222:5222
+PublishPort=8443:443
 
-Volume=%h/.local/containers/nginx/config:/etc/nginx:ro
-Volume=%h/.local/containers/nginx/html:/usr/share/nginx/html:ro
 Volume=%h/.local/containers/nginx/logs:/var/log/nginx
+Volume=%h/.config/home-server/nginx/config:/etc/nginx:ro
+Volume=%h/.config/home-server/nginx/sites-available:/etc/nginx/sites-available:ro
+Volume=%h/.config/home-server/nginx/snippets:/etc/nginx/snippets:ro
+Volume=%h/.local/containers/letsencrypt/:/etc/letsencrypt:ro
 
 [Service]
-Restart=always
-RestartSec=5s
+Restart=on-failure
 
 [Install]
 WantedBy=default.target

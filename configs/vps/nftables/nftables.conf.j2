@@ -2,6 +2,8 @@ table ip nat {
   chain prerouting {
     type nat hook prerouting priority dstnat;
 
+    tcp dport 443 dnat to 10.10.0.2:8443
+
     # forgejo ssh
     tcp dport 2222 dnat to 10.10.0.2:2222
 

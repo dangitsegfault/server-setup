@@ -1,0 +1,23 @@
+server {
+  listen 443;
+  server_name tasks.botcodes.dev;
+
+  ssl_certificate     /etc/letsencrypt/live/tasks.botcodes.dev/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/tasks.botcodes.dev/privkey.pem;
+
+  resolver 10.0.0.1 valid=10s;
+  set $backend http://tasks.md:8010;
+
+	location / {
+		include snippets/authelia-authrequest.conf;
+
+		proxy_pass $backend;
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+	}
+
+	include snippets/authelia-location.conf;
+
+}
