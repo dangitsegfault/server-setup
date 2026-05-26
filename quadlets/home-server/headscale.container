@@ -6,7 +6,6 @@ ContainerName=headscale
 Image=docker.io/headscale/headscale:latest
 
 Network=botcodes.network
-IP=10.0.0.25
 
 Volume=%h/.local/containers/headscale/config:/etc/headscale:ro
 Volume=%h/.local/containers/headscale/lib:/var/lib/headscale
@@ -14,7 +13,7 @@ Volume=%h/.local/containers/headscale/lib:/var/lib/headscale
 Exec=serve
 
 [Service]
-Restart=always
+Restart=on-failure
 
 [Install]
 WantedBy=default.target

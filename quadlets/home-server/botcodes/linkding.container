@@ -6,13 +6,12 @@ Wants=nginx.service
 ContainerName=linkding
 Image=docker.io/sissbruecker/linkding:latest
 Network=botcodes.network
-IP=10.0.0.17
 
 Volume=%h/.local/containers/linkding:/etc/linkding/data
 Environment=LD_SERVER_PORT=8009
 
 [Service]
-Restart=always
+Restart=on-failure
 
 [Install]
 WantedBy=default.target

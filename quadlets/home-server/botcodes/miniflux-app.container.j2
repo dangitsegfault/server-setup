@@ -7,14 +7,9 @@ After=miniflux-db.service
 ContainerName=miniflux-app
 Image=docker.io/miniflux/miniflux
 Network=botcodes.network
-IP=10.0.0.20
 
 Environment=PORT=8010
-Environment=CREATE_ADMIN=1
-Environment=RUN_MIGRATIONS=1
-Environment=ADMIN_USERNAME=admin
-Environment=ADMIN_PASSWORD=changeme
-Environment=DATABASE_URL="postgres://miniflux:supersecret@miniflux-db/miniflux?sslmode=disable"
+Environment=DATABASE_URL="postgres://miniflux:{{ miniflux_postgresql_password }}@miniflux-db/miniflux?sslmode=disable"
 
 [Service]
 Restart=always

@@ -6,7 +6,6 @@ Wants=nginx.service
 ContainerName=authelia
 Image=docker.io/authelia/authelia:latest
 Network=botcodes.network
-IP=10.0.0.15
 
 Volume=%h/.local/containers/authelia/config:/config:ro
 Volume=%h/.local/containers/authelia/notifications:/notifications
@@ -14,7 +13,7 @@ Volume=%h/.local/containers/authelia/secrets:/secrets:ro
 Volume=%h/.local/containers/letsencrypt:/etc/letsencrypt:ro
 
 [Service]
-Restart=always
+Restart=on-failure
 
 [Install]
 WantedBy=default.target

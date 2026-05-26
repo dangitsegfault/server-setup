@@ -21,7 +21,7 @@ Environment=FORGEJO__server__SSH_LISTEN_PORT={{ forgejo_server_ssh_listen_port }
 PublishPort={{ forgejo_server_ssh_listen_port }}:{{ forgejo_server_ssh_listen_port }}
 
 [Service]
-Restart=always
+Restart=on-failure
 
 [Install]
 WantedBy=default.target

@@ -6,7 +6,7 @@ server {
   ssl_certificate_key /etc/letsencrypt/live/tasks.botcodes.dev/privkey.pem;
 
   resolver 10.0.0.1 valid=10s;
-  set $backend http://tasks.md:8010;
+  set $backend http://tasks-md:8010;
 
 	location / {
 		include snippets/authelia-authrequest.conf;

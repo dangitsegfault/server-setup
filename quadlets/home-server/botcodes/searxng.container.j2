@@ -1,0 +1,26 @@
+Unit]
+Description=Searxng Quadlet
+Wants=nginx.service
+
+[Container]
+ContainerName=searxng
+Image=docker.io/searxng/searxng
+Network=botcodes.network
+
+Volume=%h/.local/containers/searxng/config/:/etc/searxng/
+Volume=%h/.local/containers/searxng/data/:/var/cache/searxng/
+
+Environment=SEARXNG_PORT={{ searxng_port }}
+Environment=SEARXNG_BIND_ADDRESS="{{ searxng_bind_address }}"
+
+Environment=SEARXNG_BASE_URL="{{ searxng_base_url }}"
+Environment=SEARXNG_LIMITER={{ searxng_limiter }}
+Environment=SEARXNG_PUBLIC_INSTANCE={{ searxng_public_instance }}
+Environment=SEARXNG_SECRET="{{ searxng_secret }}"
+Environment=SEARXNG_DEBUG={{ searxng_debug}}
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

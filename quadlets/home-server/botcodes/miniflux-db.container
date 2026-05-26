@@ -1,21 +1,15 @@
 [Unit]
 Description=Miniflux Database Quadlet
-Requires=authelia.service
-After=authelia.service
 
 [Container]
 ContainerName=miniflux-db
 Image=docker.io/library/postgres
 Network=botcodes.network
-IP=10.0.0.21
 
-Environment=POSTGRES_USER=miniflux
-Environment=POSTGRES_PASSWORD=supersecret
-Environment=POSTGRES_DB=miniflux
 Volume=%h/.local/containers/miniflux/data:/var/lib/postgresql/
 
 [Service]
-Restart=always
+Restart=on-failure
 
 [Install]
 WantedBy=default.target

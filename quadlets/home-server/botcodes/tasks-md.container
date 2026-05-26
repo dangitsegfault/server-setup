@@ -7,7 +7,6 @@ After=authelia.service
 ContainerName=tasks-md
 Image=docker.io/baldissaramatheus/tasks.md
 Network=botcodes.network
-IP=10.0.0.19
 
 UserNS=keep-id
 
@@ -19,7 +18,7 @@ Environment=PGID=1000
 Environment=PORT=8011
 
 [Service]
-Restart=always
+Restart=on-failure
 
 [Install]
 WantedBy=default.target

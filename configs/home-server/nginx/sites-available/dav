@@ -14,10 +14,10 @@ server {
 	}
 
     resolver 10.0.0.1 valid=10s;
-    set $backend http://filebrowser:8002;
+    set $backend http://radicale:5232;
 
 	location / {
-		proxy_pass http://10.0.0.18:5232/;
+		proxy_pass $backend;
 		proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
 		proxy_set_header  X-Forwarded-Host $host;
 		proxy_set_header  X-Forwarded-Port $server_port;
