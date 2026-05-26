@@ -1,5 +1,5 @@
 server {
-	listen 443;
+	listen 443 ssl;
 	server_name rss.botcodes.dev;
 
   ssl_certificate     /etc/letsencrypt/live/rss.botcodes.dev/fullchain.pem;

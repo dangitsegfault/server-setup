@@ -1,6 +1,5 @@
-Unit]
+[Unit]
 Description=Searxng Quadlet
-Wants=nginx.service
 
 [Container]
 ContainerName=searxng
@@ -21,6 +20,7 @@ Environment=SEARXNG_DEBUG={{ searxng_debug}}
 
 [Service]
 Restart=on-failure
+RestartSec=300s
 
 [Install]
 WantedBy=default.target

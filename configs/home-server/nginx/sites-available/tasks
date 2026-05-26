@@ -1,5 +1,5 @@
 server {
-  listen 443;
+  listen 443 ssl;
   server_name tasks.botcodes.dev;
 
   ssl_certificate     /etc/letsencrypt/live/tasks.botcodes.dev/fullchain.pem;
