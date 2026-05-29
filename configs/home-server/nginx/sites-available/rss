@@ -5,13 +5,10 @@ server {
   ssl_certificate     /etc/letsencrypt/live/rss.botcodes.dev/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/live/rss.botcodes.dev/privkey.pem;
 
-  resolver 10.0.0.1 valid=10s;
-  set $backend http://miniflux:8010;
-
 	location / {
 		include snippets/authelia-authrequest.conf;
 
-		proxy_pass $backend;
+        proxy_pass http://miniflux-app:8010;
 		proxy_set_header Host $host;
 		proxy_set_header X-Real-IP $remote_addr;
 	}

@@ -10,6 +10,7 @@ Network=botcodes.network
 
 Environment=PORT=8010
 Environment=DATABASE_URL="postgres://miniflux:{{ miniflux_postgresql_password }}@miniflux-db/miniflux?sslmode=disable"
+Environment=LISTEN_ADDR=0.0.0.0:8010
 
 [Service]
 Restart=always
