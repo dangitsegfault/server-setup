@@ -1,0 +1,8 @@
+tcp_ports:
+  - port1
+  - port2
+
+udp_ports:
+  - port1
+  - port2
+  - "port range start:port range end"

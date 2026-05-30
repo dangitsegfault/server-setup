@@ -13,7 +13,6 @@ print_usage ()
 crypt ()
 {
     local OPERATION=$1
-    # printf "%sing variables" "$(OPERATION^)"
     printf "%sing variables\n" "${OPERATION^}"
     
     local VAULT_PASS=$2

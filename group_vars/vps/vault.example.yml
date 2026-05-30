@@ -1,3 +1,9 @@
 mumlbe_config_users: number of simultaneous users
 mumble_config_port: server port
 mumble_config_host: mumble.example.com
+
+wireguard_tz: Region/City
+wireguard_server_port: listen port for the server
+wireguard_server_private_key: self explainatory
+wireguard_peer_public_key: self explainatory
+wireguard_peer_preshared_key: self explainatory
