@@ -1,0 +1,15 @@
+#+TITLE: botcodes.dev's Configuration Files
+
+* What does this repo contain
+** Systemd Quadlets
+I selfhost a few services on my personal domain botcodes.dev. Most of those services are containerized. I find Podman easier to use with rootless containers. But this causes the issue of me not being able to use Docker Compose. I have read that there is podman compose but also that it is a lot less mature than Docker Compose. So I kept using the basic podman commands like podman run etc for a while but I had to document each command because they will have different settings. Then I read about Systemd quadlets and how they integrate nicely with systemd.
+
+** Wireguard and nftables
+I have a home server running behind NAT. I cannot port forward through it etc but it allows more control over my data because I have all my data in my home. I tried static IP for a month but I would rather not expose my home network with very low resistance against any form of cyber attacks to the public internet. So I got a cheap droplet on DigitalOcean which I can use as my gateway to the public internet and then just use a Wireguard tunnel to forward the packets to my home server. Nftables is what helps my droplet know which container to send the packet to.
+
+** Ansible
+The issue with systemd quadlet files is that their configuration is usually static and you will need to write everything in plain text in their files. That causes issues with API keys and stuff. For a while I handled this with keeping this repo private but that was causing a lot of inconveniences. Then I thought of using .env files but the issue with that was that the secrets were still plain text and then I came across Ansible Vault where you can encrypt the sensitive files. This is what made me look up Ansible initially but now I also like the easy deployment of my system with Ansible.
+
+** Other Things
+As I aim to make this the main repo for my server configurations, this will also contain other stuff like how to manage the TLS certs so that I do not forget later.  
+List of commands needed for my server setup.
